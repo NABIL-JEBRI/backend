@@ -1,14 +1,14 @@
 // backend/server.js
 const dotenv = require('dotenv'); // Pour charger les variables d'environnement
-const app = require('./src/app');   // Votre application Express configurée
-const connectDB = require('./src/config/db'); // Votre fonction de connexion à la DB
+const app = require('./app');   // Votre application Express configurée
+const connectDB = require('./config/database'); // Votre fonction de connexion à la DB
 
 // Import des jobs planifiés (cron jobs)
-const emailJobs = require('./src/jobs/emailJobs');
-const orderJobs = require('./src/jobs/orderJobs');
-const deliveryJobs = require('./src/jobs/deliveryJobs');
-const cleanupJobs = require('./src/jobs/cleanupJobs');
-const analyticsJobs = require('./src/jobs/analyticsJobs');
+// const emailJobs = require('./jobs/emailJobs');
+// const orderJobs = require('./jobs/orderJobs');
+// const deliveryJobs = require('./jobs/deliveryJobs');
+// const cleanupJobs = require('./jobs/cleanupJobs');
+// const analyticsJobs = require('./jobs/analyticsJobs');
 
 // --- 1. Gestion des exceptions non gérées (synchrones) ---
 // Cela attrape les erreurs qui se produisent en dehors des blocs try-catch
@@ -22,7 +22,7 @@ process.on('uncaughtException', err => {
 
 // --- 2. Chargement des variables d'environnement ---
 // Doit être fait le plus tôt possible
-dotenv.config({ path: './config/config.env' });
+dotenv.config();
 
 // --- 3. Connexion à la base de données ---
 connectDB();
@@ -31,16 +31,16 @@ connectDB();
 // Ces jobs ne s'exécuteront que si leur option 'scheduled' est 'true' (souvent en production)
 // et si leurs dépendances (modèles, services) sont correctement configurées.
 console.log('Initializing cron jobs...');
-emailJobs.scheduleWelcomeEmails();
-emailJobs.scheduleAbandonedCartReminders();
-orderJobs.schedulePendingOrderCleanup();
-orderJobs.scheduleDeliveredOrderCompletion();
-deliveryJobs.schedulePickupReminders();
-deliveryJobs.scheduleFailedDeliveryNotifications();
-cleanupJobs.scheduleExpiredPasswordResetTokenCleanup();
-cleanupJobs.scheduleOldDataCleanup();
-analyticsJobs.scheduleDailyAnalyticsReport();
-analyticsJobs.scheduleMonthlyPerformanceReport();
+// emailJobs.scheduleWelcomeEmails();
+// emailJobs.scheduleAbandonedCartReminders();
+// orderJobs.schedulePendingOrderCleanup();
+// orderJobs.scheduleDeliveredOrderCompletion();
+// deliveryJobs.schedulePickupReminders();
+// deliveryJobs.scheduleFailedDeliveryNotifications();
+// cleanupJobs.scheduleExpiredPasswordResetTokenCleanup();
+// cleanupJobs.scheduleOldDataCleanup();
+// analyticsJobs.scheduleDailyAnalyticsReport();
+// analyticsJobs.scheduleMonthlyPerformanceReport();
 console.log('Cron jobs initialized.');
 
 // --- 5. Démarrage du serveur ---

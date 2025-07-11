@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs'); // Pour le hachage des mots de passe
 
 const UserSchema = new mongoose.Schema({
-    username: {
+    name: {
         type: String,
         required: function() { return !this.googleId && !this.facebookId; },
         unique: true,
@@ -44,12 +44,11 @@ const UserSchema = new mongoose.Schema({
         match: [/^\d{8}$/, 'Veuillez entrer un numéro de téléphone valide (8 chiffres)']
     },
     // Réfère aux adresses stockées dans le modèle Address.js séparé
-    addresses: [
+    address: 
         {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Address'
+            type:String
         }
-    ],
+    ,
     // Champs pour l'authentification OAuth (Google, Facebook)
     googleId: {
         type: String,
@@ -91,3 +90,4 @@ UserSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
+

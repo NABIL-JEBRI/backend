@@ -1,5 +1,5 @@
 // backend/src/services/userService.js
-const User = require('../models/userModel'); // Assurez-vous d'avoir ce modèle
+const User = require('../models/User'); // Assurez-vous d'avoir ce modèle
 const ApiError = require('../utils/ApiError');
 const { hashPassword, comparePassword } = require('../utils/security/encryption'); // Pour le hachage des mots de passe
 const generatePasswordResetToken = require('../utils/security/tokenGenerator'); // Pour le token de réinitialisation (hashage)

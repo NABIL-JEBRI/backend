@@ -17,33 +17,33 @@ const generateAuthToken = require('../../utils/security/tokenGenerator'); // Ass
  * @route   POST /api/v1/auth/register
  * @access  Public
  */
-exports.register = catchAsync(async (req, res, next) => {
+exports.register = async (req, res, next) => {
     // Valider les données de la requête avec Joi
-    const { error, value } = registerUserSchema.validate(req.body);
-    if (error) {
-        // Transforme les erreurs Joi en un format lisible pour ApiError
-        const errors = error.details.map(detail => detail.message);
-        return next(new ApiError(errors.join(', '), 400));
-    }
+    console.log(req.body)
+    // const { error, value } = registerUserSchema.validate(req.body);
+    // if (error) {
+    //     // Transforme les erreurs Joi en un format lisible pour ApiError
+    //     const errors = error.details.map(detail => detail.message);
+    //     return next(new ApiError(errors.join(', '), 400));
+    // }
 
-    const newUser = await userService.registerUser(value);
+    const newUser = await userService.registerUser(req.body);
 
     // Générer un token JWT et l'envoyer
-    const token = generateAuthToken(newUser._id);
+    // const token = generateAuthToken(newUser._id);
 
     res.status(201).json({
         success: true,
         message: 'User registered successfully.',
-        token,
+        
         user: {
             id: newUser._id,
-            firstName: newUser.firstName,
-            lastName: newUser.lastName,
+            name: newUser.name,
             email: newUser.email,
             role: newUser.role
         }
     });
-});
+}
 
 /**
  * @desc    Log in user & get token

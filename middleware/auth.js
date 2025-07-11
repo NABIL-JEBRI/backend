@@ -1,7 +1,7 @@
 // backend/src/middleware/auth.js
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('./asyncHandler'); // Un utilitaire pour gérer les promesses dans les middlewares
-const User = require('models/User'); // Le modèle User
+const User = require('../models/User'); // Le modèle User
 const ApiError = require('../utils/ApiError'); // Votre classe d'erreur personnalisée
 
 /**
